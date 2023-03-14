@@ -1,0 +1,17 @@
+
+.issue-list-type{
+    /* background:gray ; */
+    padding: 10px;
+    text-align: center;
+    /* background-color: ; */
+    background-color: #fff;
+}
+h4{
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: grey;
+}
+.issue-list-items{
+    padding: 10px 5px;
+}
+/*  */

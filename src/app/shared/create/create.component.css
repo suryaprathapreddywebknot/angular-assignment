@@ -1,0 +1,39 @@
+.create{
+    width:90%;
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    padding: 1.5rem;
+}
+
+
+input,select{
+    display: block;
+    width: 80%;
+    outline: none;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 5px;
+    padding: 0.5rem;
+
+}
+label{
+    color: #000;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+button{
+    padding: 0.7rem 1rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #000;
+    border-radius:5px;
+    margin-top: 1rem;
+
+}
+.title input{
+    width: 100%;
+}
+.title{
+    /* margin-bottom:1rem ; */
+}

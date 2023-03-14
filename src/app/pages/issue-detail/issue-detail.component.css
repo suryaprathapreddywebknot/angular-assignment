@@ -1,0 +1,24 @@
+.issue{
+    /* border: 1px solid magenta; */
+    padding: 1rem;
+}
+p{
+    font-size: 0.85rem;
+    font-weight:500;
+    /* color: rgb(215, 216, 221); */
+    color: grey;
+}
+span{
+    /* margin-left: 1rem; */
+    color: #000;
+}
+.issue-navigation button{
+    outline: none;
+    border: none;
+    background-color: rgb(215, 216, 221);
+    border-radius: 5px;
+    margin: 0 1rem;
+    padding:5px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}

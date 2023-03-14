@@ -1,0 +1,71 @@
+<!-- <p>issue-detail works!</p> -->
+<div class="issue">
+    <div class="issue-name mb-4">
+        <h3>{{issueDetail.title}}</h3>
+    </div>
+    <div class="issue-navigation mb-4">
+        <button data-bs-toggle="modal" data-bs-target="#editmodal" type="button">Edit</button>
+        <button>Comment</button>
+        <button>Assign</button>
+        <button>Wont fix</button>
+        <button>Accept</button>
+        <button>Workflow</button>
+    </div>
+    <div class="issue-detail row ">
+        <div class="issue-detail1 col-4">
+            <p>Type: <span>{{issueDetail.type}}</span></p>
+            <p>Priority: <span>{{issueDetail.severity}}</span></p>
+            <p>Labels: <span>none</span></p>
+            <p>Components: <span>none</span></p>
+            <p>Story Points: <span>none</span></p>
+            <p>Sprint: <span>none</span></p>
+        </div>
+        <div class="issue-detail1 col-4">
+            <p>Status: <span>{{issueDetail.status}}</span></p>
+            <p>Resolution: <span>none</span></p>
+            <p>Fix version: <span>none</span></p>
+        </div>
+        <div class="issue-detail1 col-4">
+            <p>Assignee: <span>{{issueDetail.assignee}}</span></p>
+            <p>Assigned By: <span>{{issueDetail.assignee}}</span></p>
+            <p>votes: <span>none</span></p>
+            <p>watches: <span>comp</span></p>
+            <p>Created: <span>{{issueDetail.created_at}}</span></p>
+            <p>updated: <span>{{issueDetail.updated_at}}</span></p>
+        </div>
+        <div class="description">
+            <h6>Description</h6>
+            <p>{{issueDetail.description}}</p>
+        </div>
+        <div class="attachments">
+            <h6>Attachments</h6>
+            <p>click to add attachments</p>
+        </div>
+    </div>
+</div>
+
+<!-- modal for edit -->
+<div
+    class="modal modal-xl fade"
+    id="editmodal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{modalType}}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <app-create></app-create>
+        </div>
+      </div>
+    </div>
+  </div>

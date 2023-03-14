@@ -1,0 +1,39 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding:1rem;
+    box-shadow: 0 10px 10px rgb(229, 227, 227);
+    /* height:10vh; */
+}
+.actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+.logo img{
+    width:2rem;
+    height: 2rem;
+}
+
+.profile{
+    height: 50px;
+    width: 50px;
+    vertical-align: center;
+    border-radius: 50%;
+}
+.actions input{
+    outline: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    padding: 10px;
+    border:1px solid grey;
+}
