@@ -1,18 +1,21 @@
-
-<div class="dashboard row">
+<!-- <app-loader *ngIf="isFetching"></app-loader> -->
+<div class="dashboard row" *ngIf="!isFetching">
     <div class="dashboard-header col-12">
         <h3>Dashboard</h3>
-        <select>
+        <select >
+            <option value="" disabled selected>Select</option>
             <option value="last month">Last month</option>
             <option value="last week"> Last week</option>
         </select>
     </div>
     <div class="amcharts">
+        <!-- <app-chart></app-chart> -->
         <h1>Here charts will come</h1>
     </div>
     <div class="issues col-12 row">
-        <app-issue-list class="col-4"></app-issue-list>
-        <app-issue-list class="col-4"></app-issue-list>
+        <app-issue-list class="col-4" [issueState]="recent" [issues]="recentlyUpdatedIssues" [users]="users" [usedIn]="dashboard"></app-issue-list>
+        <app-issue-list class="col-4" [issueState]="highPriority" [issues]="highPriorityIssues" [users]="users" [usedIn]="dashboard"></app-issue-list>
         <app-issue-list class="col-4"></app-issue-list>
     </div>
 </div>
+<app-loader *ngIf="isFetching"></app-loader>

@@ -7,7 +7,7 @@ export interface Iuser{
     profile_pic:string
 }
 
-export interface Iissur{
+export interface Iissue{
     id:number,
     created_at:string,
     updated_at:string,

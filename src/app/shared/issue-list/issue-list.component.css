@@ -1,10 +1,15 @@
-
+.issue-list{
+    overflow: scroll;
+    height:40rem;
+}
 .issue-list-type{
     /* background:gray ; */
     padding: 10px;
     text-align: center;
     /* background-color: ; */
     background-color: #fff;
+    position: sticky;
+    top: 0;
 }
 h4{
     font-size: 0.8rem;
@@ -14,4 +19,14 @@ h4{
 .issue-list-items{
     padding: 10px 5px;
 }
-/*  */
+.navigation button{
+    float: right;
+    border: none;
+    outline: none;
+    padding: 0.8rem 1.2rem;
+    background-color: rgb(86, 93, 233);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    margin: 1rem ;
+}

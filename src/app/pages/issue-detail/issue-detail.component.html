@@ -1,7 +1,8 @@
 <!-- <p>issue-detail works!</p> -->
-<div class="issue">
+<app-loader *ngIf="isFetching"></app-loader>
+<div class="issue" *ngIf="!isFetching">
     <div class="issue-name mb-4">
-        <h3>{{issueDetail.title}}</h3>
+        <h3>{{issueDetail?.title}}</h3>
     </div>
     <div class="issue-navigation mb-4">
         <button data-bs-toggle="modal" data-bs-target="#editmodal" type="button">Edit</button>
@@ -13,33 +14,33 @@
     </div>
     <div class="issue-detail row ">
         <div class="issue-detail1 col-4">
-            <p>Type: <span>{{issueDetail.type}}</span></p>
-            <p>Priority: <span>{{issueDetail.severity}}</span></p>
-            <p>Labels: <span>none</span></p>
-            <p>Components: <span>none</span></p>
-            <p>Story Points: <span>none</span></p>
-            <p>Sprint: <span>none</span></p>
+            <p>Type: <span>{{issueDetail?.type}}</span></p>
+            <p>Priority: <span>{{issueDetail?.priority}}</span></p>
+            <p>Labels: <span>{{issueDetail?.labels}}</span></p>
+            <p>Components: <span>{{issueDetail?.components}}</span></p>
+            <p>Story Points: <span>{{issueDetail?.points}}</span></p>
+            <p>Sprint: <span>{{issueDetail?.sprint}}</span></p>
         </div>
         <div class="issue-detail1 col-4">
-            <p>Status: <span>{{issueDetail.status}}</span></p>
-            <p>Resolution: <span>none</span></p>
-            <p>Fix version: <span>none</span></p>
+            <p>Status: <span>{{issueDetail?.status}}</span></p>
+            <p>Resolution: <span>{{issueDetail?.resolution}}</span></p>
+            <p>Fix version: <span>{{issueDetail?.version}}</span></p>
         </div>
         <div class="issue-detail1 col-4">
-            <p>Assignee: <span>{{issueDetail.assignee}}</span></p>
-            <p>Assigned By: <span>{{issueDetail.assignee}}</span></p>
-            <p>votes: <span>none</span></p>
-            <p>watches: <span>comp</span></p>
-            <p>Created: <span>{{issueDetail.created_at}}</span></p>
-            <p>updated: <span>{{issueDetail.updated_at}}</span></p>
+            <p>Assignee: <span>{{assignee}}</span></p>
+            <p>Assigned By: <span>{{assignedBy}}</span></p>
+            <p>votes: <span>{{issueDetail?.votes}}</span></p>
+            <p>watches: <span>{{issueDetail?.watches}}</span></p>
+            <p>Created: <span>{{createdAt}}</span></p>
+            <p>updated: <span>{{updatedAt}}</span></p>
         </div>
         <div class="description">
             <h6>Description</h6>
-            <p>{{issueDetail.description}}</p>
+            <p>{{issueDetail?.description}}</p>
         </div>
         <div class="attachments">
             <h6>Attachments</h6>
-            <p>click to add attachments</p>
+            <!-- <p>click to add attachments</p> -->
         </div>
     </div>
 </div>

@@ -3,3 +3,6 @@
     justify-content: space-between;
     padding: 1rem;
 }
+
+.dropdown{
+    min-width:300px}

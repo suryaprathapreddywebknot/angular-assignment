@@ -7,6 +7,7 @@
     gap: 0.5rem;
     padding:0.5rem 1rem;
     background-color: #fff;
+    cursor: pointer;
 }
 span{
     align-self: flex-end;
@@ -40,4 +41,15 @@ p{
 }
 i{
     color: rgb(101, 180, 253);
+}
+.assignee{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.assignee p{
+    color:grey;
+    font-size: 0.8rem;
+
 }

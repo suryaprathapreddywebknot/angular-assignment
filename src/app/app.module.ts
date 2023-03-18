@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { CommonModule } from '@angular/common';
 import { CreateComponent } from './shared/create/create.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { routingComponents } from './app-routing.module';
+import { UserService } from './core/services/user.service';
+import { LoaderComponent } from './shared/loader/loader.component';
+// import { MultiselectdropdownComponent } from './shared/multiselectdropdown/multiselectdropdown.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { routingComponents } from './app-routing.module';
     SidebarComponent,
     CreateComponent,
     NotfoundComponent,
-    routingComponents
+    routingComponents,
+    LoaderComponent,
+    // MultiselectdropdownComponent
 
   ],
   imports: [
@@ -37,9 +43,10 @@ import { routingComponents } from './app-routing.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

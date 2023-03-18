@@ -1,16 +1,26 @@
-
-
 <div class="issues row">
+    
     <div class="issues-header col-12">
         <h3>Issues</h3>
-        <select>
-            <option value="last month">Last month</option>
-            <option value="last week"> Last week</option>
-        </select>
+        <ng-multiselect-dropdown
+        class="dropdown"
+  [placeholder]="'Select Assignee'"
+  [settings]="dropdownSettings"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  (onDeSelect)="onItemDeSelect($event)"
+>
+
+</ng-multiselect-dropdown>
+       
     </div>
     <div class="issues-lists col-12 row">
-        <app-issue-list class="col-4"></app-issue-list>
-        <app-issue-list class="col-4"></app-issue-list>
-        <app-issue-list class="col-4"></app-issue-list>
+        <app-issue-list  class="col-4" [issues]="toDoIssues" [issueState]="todo" [users]="users" ></app-issue-list>
+        <app-issue-list class="col-4" [issues]="inProgressIssues" [issueState]="progress" [users]="users"></app-issue-list>
+        <app-issue-list class="col-4" [issues]="doneIssues" [issueState]="done" [users]="users"></app-issue-list>
+        <!-- <app-multiselectdropdown [users]="users"></app-multiselectdropdown> -->
     </div>
 </div>
+<app-loader *ngIf="isFetching"></app-loader>

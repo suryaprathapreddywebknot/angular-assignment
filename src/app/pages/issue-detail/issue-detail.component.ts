@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-issue-detail',
@@ -9,9 +10,14 @@ import { ParamMap } from '@angular/router';
 })
 export class IssueDetailComponent implements OnInit{
   public issueDetail:any;
-  public modalType:string="Edit"
+  public modalType:string="Edit";
+  public assignee:any;
+  public assignedBy:any;
+  public createdAt:any;
+  public updatedAt:any;
+  public isFetching=false
 
-  constructor(private route:ActivatedRoute){
+  constructor(private route:ActivatedRoute,private _service:UserService){
 
 
   }
@@ -19,27 +25,35 @@ export class IssueDetailComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.isFetching=true
+    // console.log('datail page is initiated')
 
     this.route.paramMap.subscribe((params:ParamMap)=>{
-      let id=params.get("id")
+      let issueId=params.get("id")
+      
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
       // use this id to fetch issue detail using get request
-      console.log(id)
+      this._service.getIssueDetail(issueId).subscribe(data=>{
+
+        
+        this.issueDetail=data
+        let createdDate=new Date(this.issueDetail.created_at)
+        this.createdAt=`${createdDate.getDate()} ${months[createdDate.getMonth()]} ${createdDate.getFullYear()}`
+        let updatedDate=new Date(this.issueDetail.updated_at)
+        this.updatedAt=`${updatedDate.getDate()} ${months[updatedDate.getMonth()]} ${updatedDate.getFullYear()}`
+      },()=>{},()=>{
+        this._service.getUser(this.issueDetail.assignee).subscribe(data=>{
+          this.assignee=data.first_name+' '+data.last_name
+        })
+        this._service.getUser(this.issueDetail.created_by).subscribe(data=>{
+          this.assignedBy=data.first_name+" "+data.last_name
+        },()=>{},()=>{this.isFetching=false})
+      })
+      
+
     })
-    // on component initialization we will fetch this data from the api
-    const issueDetailData={
-      "id": 11,
-      "created_at": "2018-12-18T04:43:10.791467Z",
-      "updated_at": "2019-02-12T04:48:42.950006Z",
-      "title": "Book Without Executive Radio Nation Team",
-      "description": "Institution office forward way result raise. Organization low far safe",
-      "status": "Resolved",
-      "severity": 2,
-      "due_date": null,
-      "type": "Bug",
-      "project": 3,
-      "assignee": 4
-      }
-      this.issueDetail=issueDetailData;
+    
       
   }
 }
