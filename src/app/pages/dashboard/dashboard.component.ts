@@ -16,29 +16,42 @@ export class DashboardComponent implements OnInit {
   public highPriorityIssues: Array<Iissue> = [];
   public highPriority = 'HIGH PRIORITY';
   public recent = 'RECENTLY UPDATED';
-  public dashboard="DASHBOARD"
+  public dashboard = 'DASHBOARD';
+  public currentDate = new Date();
+
+  public lastMonth: any = new Date(
+    this.currentDate.getFullYear(),
+    this.currentDate.getMonth() - 1
+  ).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  public lastWeekEnd:any=new Date(
+    this.currentDate.getFullYear(),
+    this.currentDate.getMonth(),
+    this.currentDate.getDate() - this.currentDate.getDay()-1
+  ).toLocaleDateString('en-US',{month:'long',day:'numeric'})
+  public lastWeekStart= new Date(
+    this.currentDate.getFullYear(),
+    this.currentDate.getMonth(),
+    this.currentDate.getDate() - 7 -this. currentDate.getDay()
+  ).toLocaleDateString('en-US',{month:'long',day:'numeric'})
 
   constructor(private _service: UserService) {}
 
   ngOnInit(): void {
-    this.fetchDates()
-    this.isFetching=true
+    this.isFetching = true;
     this._service.getUserIssues().subscribe(
       (data) => {
         this.issues = data;
       },
       () => {},
       () => {
-        let dummyIssues = JSON.parse(JSON.stringify(this.issues));
-        dummyIssues.sort((a: any, b: any) => {
-          new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf();
-        });
-        this.recentlyUpdatedIssues = dummyIssues.slice(0, 4);
-        this.highPriorityIssues = dummyIssues
-          .filter((ele: any) => ele.priority == 'HIGH')
-          .slice(0, 4);
+        let dummyIssues=JSON.parse(JSON.stringify(this.issues))
+        // console.log(dummyIssues)
+        dummyIssues.sort((a:any,b:any)=>new Date(b.updated_at).valueOf()-new Date(a.updated_at).valueOf())
+        console.log(dummyIssues)
+        this.recentlyUpdatedIssues=dummyIssues.slice(0,4)
+        this.highPriorityIssues=dummyIssues.filter((ele:any)=>ele.priority=="HIGH").slice(0,4)
 
-        this.isFetching=false
+        this.isFetching = false;
       }
     );
     // console.log(this.issues)
@@ -46,15 +59,13 @@ export class DashboardComponent implements OnInit {
     // this.highPriorityIssues=this.issues.filter(ele=>ele.priority=="HIGH")
   }
 
-fetchDates(){
-  const currentDate = new Date();
+  onchange(event: any) {
+    let filteredDate=new Date(event.target.value)
+    let filteredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at)>=filteredDate)
+    filteredIssues.sort((a:any,b:any)=>new Date(b.updated_at).valueOf()-new Date(a.updated_at).valueOf())
+    this.recentlyUpdatedIssues=filteredIssues.slice(0,4)
+    this.highPriorityIssues=filteredIssues.filter((ele:any)=>ele.priority="HIGH").slice(0,4)
+  }
 
-// Get the last month
-const lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1);
-const lastWeekEnd = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() - 1);
-const lastWeekStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 7 - currentDate.getDay());
-console.log( lastMonth.toISOString() , currentDate.toISOString());
-}
-
-
+  
 }

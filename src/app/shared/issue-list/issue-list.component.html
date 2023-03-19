@@ -3,13 +3,13 @@
     <div class="issue-list-type">
         <h4>{{issueState}}</h4>
     </div>
-    <div class="issue-list-items" *ngIf="issues" >
-        <div *ngFor="let item of issues" >
-            <app-issue-card [issue]="item" [users]="users" (click)="issueDetailHandler(item)"></app-issue-card>
-
-        </div>
+    <div class="issue-list-items">
+        <app-issue-card [issue]="item" [users]="users" (click)="issueDetailHandler(item)" *ngFor="let item of issues" ></app-issue-card>
     </div>
+   
     <div class="navigation">
         <button routerLink="/issues" *ngIf="usedIn=='DASHBOARD'">View All</button>
     </div>
 </div>
+
+

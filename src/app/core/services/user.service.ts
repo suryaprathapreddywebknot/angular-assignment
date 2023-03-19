@@ -10,6 +10,7 @@ import { map,filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
+  
 
   constructor( private _http:HttpClient) {
    }
@@ -30,6 +31,19 @@ export class UserService {
 
    getIssueDetail(id:any){
     return  this._http.get<Iissue>(`${url+endpoints.issues+id}`)
+   }
+
+   createIssue(issue:any){
+    return this._http.post(`${url+endpoints.issues}`,issue)
+
+   }
+
+   updateIssue(issue:any,id:any){
+    return this._http.put(`${url+endpoints.issues+id}/`,issue)
+   }
+
+   deleteIssue(id:any){
+    return this._http.delete(`${url+endpoints.issues+id}/`)
    }
 
 

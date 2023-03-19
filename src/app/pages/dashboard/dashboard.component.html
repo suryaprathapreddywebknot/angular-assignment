@@ -1,11 +1,11 @@
 <!-- <app-loader *ngIf="isFetching"></app-loader> -->
-<div class="dashboard row" *ngIf="!isFetching">
+<div class="dashboard row" *ngIf="!isFetching && issues">
     <div class="dashboard-header col-12">
         <h3>Dashboard</h3>
-        <select >
+        <select (change)="onchange($event)" >
             <option value="" disabled selected>Select</option>
-            <option value="last month">Last month</option>
-            <option value="last week"> Last week</option>
+            <option [value]="lastMonth">Last Month: {{lastMonth}}</option>
+            <option [value]="lastWeekStart">{{lastWeekStart}} - {{lastWeekEnd}}</option>
         </select>
     </div>
     <div class="amcharts">

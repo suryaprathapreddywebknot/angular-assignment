@@ -1,6 +1,6 @@
 <!-- <p>issue-detail works!</p> -->
 <app-loader *ngIf="isFetching"></app-loader>
-<div class="issue" *ngIf="!isFetching">
+<div class="issue" *ngIf="!isFetching && issueDetail">
     <div class="issue-name mb-4">
         <h3>{{issueDetail?.title}}</h3>
     </div>
@@ -43,10 +43,12 @@
             <!-- <p>click to add attachments</p> -->
         </div>
     </div>
+    <button class="btn btn-danger" (click)="onDelete()">Delete</button>
 </div>
 
 <!-- modal for edit -->
 <div
+    *ngIf="issueDetail"
     class="modal modal-xl fade"
     id="editmodal"
     tabindex="-1"
@@ -65,7 +67,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <app-create></app-create>
+          <app-create [issueDetailData]="issueDetail"></app-create>
         </div>
       </div>
     </div>

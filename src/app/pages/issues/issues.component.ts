@@ -3,7 +3,7 @@ import { filter, pipe } from 'rxjs';
 import { Iissue, Iuser } from 'src/app/core/interfaces/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-
+import { CdkDragDrop, moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-issues',
   templateUrl: './issues.component.html',
@@ -31,6 +31,8 @@ export class IssuesComponent implements OnInit {
 
   }
 
+  
+
 
   updateIssues(user:any,type:any){
     if(type=='add'){
@@ -38,7 +40,7 @@ export class IssuesComponent implements OnInit {
       
     }
     else{
-      console.log(this.assignees.indexOf(user.id))
+      // console.log(this.assignees.indexOf(user.id))
       this.assignees.splice(this.assignees.indexOf(user.id),1)
     }
     if(this.assignees.length==0){
@@ -100,8 +102,11 @@ export class IssuesComponent implements OnInit {
     // console.log(item)
     this.updateIssues(item,'remove')
   }
+
+  
+}
     
       
-  }
+
 
 

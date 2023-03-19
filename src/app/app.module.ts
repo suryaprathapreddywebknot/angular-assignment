@@ -21,6 +21,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { routingComponents } from './app-routing.module';
 import { UserService } from './core/services/user.service';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 // import { MultiselectdropdownComponent } from './shared/multiselectdropdown/multiselectdropdown.component';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
     FormsModule,
     HttpClientModule,
     CommonModule,
+    DragDropModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [UserService],

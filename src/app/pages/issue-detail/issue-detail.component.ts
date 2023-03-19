@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ParamMap } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -17,14 +17,23 @@ export class IssueDetailComponent implements OnInit{
   public updatedAt:any;
   public isFetching=false
 
-  constructor(private route:ActivatedRoute,private _service:UserService){
+  constructor(private route:ActivatedRoute,private _service:UserService,private _router:Router){
 
 
+  }
+
+  onDelete(){
+    if(confirm('Confirm to delete issue')){
+      this._service.deleteIssue(this.issueDetail.id).subscribe(data=>{console.log(data)})
+      this._router.navigate(['/dashboard'])
+    }
+   
   }
 
 
 
   ngOnInit(): void {
+    // console.log(this.route)
     this.isFetching=true
     // console.log('datail page is initiated')
 
