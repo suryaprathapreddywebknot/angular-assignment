@@ -125,6 +125,7 @@ export class IssuesComponent implements OnInit {
     if(issueData.status!==event.container.id){
       this.isFetching=true
       issueData.status=event.container.id
+      issueData.updated_at=Date.now()
       this._userService.updateIssue(issueData,issueData.id).subscribe(data=>{},()=>{},()=>{
         this.isFetching=false
   
