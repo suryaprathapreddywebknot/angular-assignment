@@ -1,15 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnChanges,SimpleChanges } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { Iuser } from 'src/app/core/interfaces/interfaces';
+
 
 @Component({
   selector: 'app-issue-card',
   templateUrl: './issue-card.component.html',
   styleUrls: ['./issue-card.component.css']
 })
-export class IssueCardComponent implements OnInit {
+export class IssueCardComponent implements OnInit{
   @Input()public issue:any;
   @Input()public users:any;
+  @Input()public cardtype:any;
   public date:any;
   public assignee:any
   
@@ -19,7 +21,7 @@ export class IssueCardComponent implements OnInit {
   
 
 
-    
+   
     ngOnInit(): void {
       // console.log(this.users)
       const currentassignee=this.users.find((user:any)=>+user.id== +this.issue.assignee)
@@ -30,6 +32,7 @@ export class IssueCardComponent implements OnInit {
       this.date=`${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 
   }
+
 
   
 

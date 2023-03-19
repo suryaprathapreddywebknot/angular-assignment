@@ -3,7 +3,9 @@ import { filter, pipe } from 'rxjs';
 import { Iissue, Iuser } from 'src/app/core/interfaces/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { CdkDragDrop, moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList,transferArrayItem } from '@angular/cdk/drag-drop';
+import { SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-issues',
   templateUrl: './issues.component.html',
@@ -14,20 +16,21 @@ export class IssuesComponent implements OnInit {
 
   // public toDoIssues:<Iissue[]>;
   public isFetching=false
-  public issues:Array<Iissue>=[]
-  public toDoIssues:Array<Iissue>=[]
-  public inProgressIssues:Array<Iissue>=[]
-  public doneIssues:Array<Iissue>=[]
+  public issues:Iissue[]=[]
+  public toDoIssues:Iissue[]=[]
+  public inProgressIssues:Iissue[]=[]
+  public doneIssues:Iissue[]=[]
   public users:Array<Iuser>=[]
   public todo:string="Todo"
   public progress:string="In Progress"
   public done:string="Done"
+  public cardType:string='draggable'
   public assignees:any=[]
   dropdownList:any = [];
   selectedItems:any = [];
   dropdownSettings:any;
 
-  constructor(private _userService:UserService){
+  constructor(private _userService:UserService,private _route:Router){
 
   }
 
@@ -101,6 +104,42 @@ export class IssuesComponent implements OnInit {
   onItemDeSelect(item:any){
     // console.log(item)
     this.updateIssues(item,'remove')
+  }
+
+  ngOnChanges(changes:SimpleChanges){
+    // console.log(changes)
+    // if(changes['issues']?.firstChange) return
+    let currentIssues=changes['issues']?.currentValue
+    this.issues=currentIssues
+  }
+
+  issueDetailHandler(issue:any){
+    this._route.navigate(["/issues",issue.id])
+  }
+  drop(event: CdkDragDrop<Iissue[]>) {  
+   
+    
+    let issueData=event.item.data
+    console.log(issueData.id)
+  
+    if(issueData.status!==event.container.id){
+      this.isFetching=true
+      issueData.status=event.container.id
+      this._userService.updateIssue(issueData,issueData.id).subscribe(data=>{},()=>{},()=>{
+        this.isFetching=false
+  
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+  
+      })
+      
+    }
+
+    
+     
+
   }
 
   

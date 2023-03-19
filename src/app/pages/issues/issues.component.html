@@ -1,26 +1,75 @@
 <div class="issues row">
-    
-    <div class="issues-header col-12">
-        <h3>Issues</h3>
-        <ng-multiselect-dropdown
-        class="dropdown"
-  [placeholder]="'Select Assignee'"
-  [settings]="dropdownSettings"
-  [data]="dropdownList"
-  [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
-  (onDeSelect)="onItemDeSelect($event)"
->
+  <div class="issues-header col-12">
+    <h3>Issues</h3>
+    <ng-multiselect-dropdown
+      class="dropdown"
+      [placeholder]="'Select Assignee'"
+      [settings]="dropdownSettings"
+      [data]="dropdownList"
+      [(ngModel)]="selectedItems"
+      (onSelect)="onItemSelect($event)"
+      (onSelectAll)="onSelectAll($event)"
+      (onDeSelect)="onItemDeSelect($event)"
+    >
+    </ng-multiselect-dropdown>
+  </div>
+  <div class="issues-lists col-12 row">
+    <div
+    id="TODO"
+      class="issue-list col-4"
+      cdkDropList
+      #toDoList="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="toDoIssues"
+      [cdkDropListConnectedTo]="[progressList]"
+    >
+      <h1>TODO</h1>
+      <app-issue-card
+        [cardtype]="cardType"
+        [issue]="item"
+        [users]="users"
+        (click)="issueDetailHandler(item)"
+        *ngFor="let item of toDoIssues"
+      ></app-issue-card>
+    </div>
+    <div
+    id="DOING"
+      class="issue-list col-4"
+      cdkDropList
+      #progressList="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="inProgressIssues"
+      [cdkDropListConnectedTo]="[doneList]"
+    >
+      <h1>In Progress</h1>
+      <app-issue-card
+        [issue]="item"
+        [users]="users"
+        (click)="issueDetailHandler(item)"
+        *ngFor="let item of inProgressIssues"
+        
+      ></app-issue-card>
+    </div>
+    <div
+    id="DONE"
+      class="issue-list col-4"
+      cdkDropList
+      #doneList="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="doneIssues"
+      
+     
+    >
+      <h1>Done</h1>
+      <app-issue-card
+        [issue]="item"
+        [users]="users"
+        (click)="issueDetailHandler(item)"
+        *ngFor="let item of doneIssues"
+      ></app-issue-card>
+    </div>
 
-</ng-multiselect-dropdown>
-       
-    </div>
-    <div class="issues-lists col-12 row">
-        <app-issue-list  class="col-4" [issues]="toDoIssues" [issueState]="todo" [users]="users"  ></app-issue-list>
-        <app-issue-list class="col-4" [issues]="inProgressIssues" [issueState]="progress" [users]="users"  ></app-issue-list>
-        <app-issue-list class="col-4" [issues]="doneIssues" [issueState]="done" [users]="users"></app-issue-list>
-        <!-- <app-multiselectdropdown [users]="users"></app-multiselectdropdown> -->
-    </div>
+    <!-- <app-multiselectdropdown [users]="users"></app-multiselectdropdown> -->
+  </div>
 </div>
 <app-loader *ngIf="isFetching"></app-loader>

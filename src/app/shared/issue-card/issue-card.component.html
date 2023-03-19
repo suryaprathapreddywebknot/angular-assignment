@@ -1,4 +1,22 @@
-<div class="issue-card ">
+
+
+<div class="issue-card " *ngIf="cardtype=='draggable'" cdkDrag [cdkDragData]="issue">
+    <span>{{date}}</span>
+    <h3>{{issue?.title}}</h3>
+    <p>{{issue?.description}}</p>
+    <div class="issue-card-details">
+        <div class="issue-id">
+            <i class="bi bi-calendar2-check-fill"></i>
+            <p>{{issue?.short_id}}</p>
+        </div>
+        <div class="assignee">
+            <img  class='profile' [src]="assignee?.profile_pic" alt="">
+            <p>{{assignee?.first_name}}</p>
+
+        </div>
+    </div>
+</div>
+<div class="issue-card " *ngIf="cardtype!=='draggable'" >
     <span>{{date}}</span>
     <h3>{{issue?.title}}</h3>
     <p>{{issue?.description}}</p>

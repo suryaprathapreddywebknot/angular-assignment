@@ -6,3 +6,20 @@
 
 .dropdown{
     min-width:300px}
+
+.issue-list{
+    overflow: scroll;
+    text-align: center;
+    height: 33rem;
+    
+}
+h1{
+    font-size: 0.9rem;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color:rgb(222, 222, 222);
+    padding: 0.8rem 0;
+
+}

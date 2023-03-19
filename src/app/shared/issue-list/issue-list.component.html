@@ -4,7 +4,7 @@
         <h4>{{issueState}}</h4>
     </div>
     <div class="issue-list-items">
-        <app-issue-card [issue]="item" [users]="users" (click)="issueDetailHandler(item)" *ngFor="let item of issues" ></app-issue-card>
+        <app-issue-card cdkDrag [issue]="item" [users]="users" (click)="issueDetailHandler(item)" *ngFor="let item of issues" ></app-issue-card>
     </div>
    
     <div class="navigation">
