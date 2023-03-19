@@ -9,8 +9,8 @@
         </select>
     </div>
     <div class="amcharts">
-        <!-- <app-chart></app-chart> -->
-        <h1>Here charts will come</h1>
+        <app-chart [issues]="issues"></app-chart>
+        <!-- <h1>Here charts will come</h1> -->
     </div>
     <div class="issues col-12 row">
         <app-issue-list class="col-4" [issueState]="recent" [issues]="recentlyUpdatedIssues" [users]="users" [usedIn]="dashboard"></app-issue-list>

@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   public recent = 'RECENTLY UPDATED';
   public dashboard = 'DASHBOARD';
   public currentDate = new Date();
+ 
 
   public lastMonth: any = new Date(
     this.currentDate.getFullYear(),
@@ -47,7 +48,8 @@ export class DashboardComponent implements OnInit {
         let dummyIssues=JSON.parse(JSON.stringify(this.issues))
         // console.log(dummyIssues)
         dummyIssues.sort((a:any,b:any)=>new Date(b.updated_at).valueOf()-new Date(a.updated_at).valueOf())
-        console.log(dummyIssues)
+       
+        // console.log(dummyIssues)
         this.recentlyUpdatedIssues=dummyIssues.slice(0,4)
         this.highPriorityIssues=dummyIssues.filter((ele:any)=>ele.priority=="HIGH").slice(0,4)
 
