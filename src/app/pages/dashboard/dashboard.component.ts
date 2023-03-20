@@ -1,4 +1,3 @@
-import { array, math } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { Iissue } from 'src/app/core/interfaces/interfaces';
 import { Iuser } from 'src/app/core/interfaces/interfaces';

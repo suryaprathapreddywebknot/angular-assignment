@@ -95,7 +95,6 @@ export class ChartComponent implements OnInit
      bullet2.circle.fill = am4core.color('#fff');
 
      chart.legend = new am4charts.Legend();
-// chart.legend.useDefaultMarker = true;
 chart.legend.position = "bottom";
 chart.legend.align = "center";
 
@@ -119,23 +118,7 @@ chart.legend.align = "center";
     }, {});
   }
 
-
-
-  
-
-
-
-
   ngOnInit(){
-    
-   
-
-    // let recentFiltredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=Date.now().toLocaleString())
-    // let recentHighPriorityIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=lastMonth && ele.priority=="HIGH")
-    // console.log(recentFiltredIssues)
-    // console.log(recentHighPriorityIssues)
-   
-
     this.createChart()
   }
 }

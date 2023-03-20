@@ -40,13 +40,22 @@ export class CreateComponent implements OnInit {
       this.issueData.created_at=Date.now().toLocaleString()
       this.issueData.updated_at=Date.now().toLocaleString()
       this.issueData.short_id=`PCG-${this.issueData.created_by}-3767202`
-      this._userService.createIssue(this.issueData).subscribe(data=>{console.log(data)})
+      try {
+        this._userService.createIssue(this.issueData).subscribe(data=>{console.log(data)})
+      } catch (error) {
+        alert('Unable to create Issue')
+      }
+      
 
     }
     if(this.formType=='edit'){
       this.issueData.updated_at=Date.now().toLocaleString()
-      // console.log(this.issueData.id)
-      this._userService.updateIssue(this.issueData,this.issueData.id).subscribe(data=>console.log(data))
+      try {
+        this._userService.updateIssue(this.issueData,this.issueData.id).subscribe(data=>console.log(data))
+      } catch (error) {
+        alert('Unable to edit issue')
+      }
+      
     }
    this._route.navigate(['/dashboard'])
   }

@@ -23,7 +23,6 @@ export class IssueCardComponent implements OnInit{
 
    
     ngOnInit(): void {
-      // console.log(this.users)
       const currentassignee=this.users.find((user:any)=>+user.id== +this.issue.assignee)
       this.assignee=currentassignee;
       // logic to set date

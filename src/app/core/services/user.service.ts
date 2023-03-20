@@ -15,6 +15,8 @@ export class UserService {
   constructor( private _http:HttpClient) {
    }
 
+
+  //  Service methods to perfoem CRUD operations 
    getUserIssues():Observable<Iissue[]>{
 
     return this._http.get<Iissue[]>(`${url+endpoints.issues}`)
