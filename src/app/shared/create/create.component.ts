@@ -16,7 +16,7 @@ export class CreateComponent implements OnInit {
  
   public priorityList=["HIGH","LOW","VERY LOW"]
   public statusList=["TODO","DOING","DONE"]
-  public issueData=new issueData("","","","","","","","","","","","","")
+  public issueData=new issueData(null,null,null,null,null,null,null,null,null,null,null,null,null)
   public formType='create'
   public users:Array<Iuser>=[]
 

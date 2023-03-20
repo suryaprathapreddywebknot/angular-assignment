@@ -74,12 +74,13 @@ export class ChartComponent implements OnInit
      series1.dataFields.valueY = 'value1';
      series1.dataFields.valueX = 'day';
      series1.stroke = am4core.color('blue');
+     series1.name='Recently Updated Issues'
 
      let series2 = chart.series.push(new am4charts.LineSeries());
      series2.dataFields.valueY = 'value2';
      series2.dataFields.valueX = 'day';
      series2.stroke = am4core.color('pink');
-
+    series2.name='High Priority Issues'
 
  
      // Add bullets
@@ -92,6 +93,11 @@ export class ChartComponent implements OnInit
      bullet2.circle.radius = 4;
      bullet2.circle.strokeWidth = 2;
      bullet2.circle.fill = am4core.color('#fff');
+
+     chart.legend = new am4charts.Legend();
+// chart.legend.useDefaultMarker = true;
+chart.legend.position = "bottom";
+chart.legend.align = "center";
 
      
  

@@ -3,15 +3,17 @@
   <form class="inputs row " #issueForm="ngForm"  (ngSubmit)="onSubmit()">
     <div class="title col-12">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" [(ngModel)]="issueData.title"/>
+        <input type="text" id="title" minlength="2" maxlength="100" name="title" #name="ngModel" [(ngModel)]="issueData.title" required/>
+        <span *ngIf="name.invalid && name.touched" style="color:red">Title is to be atleast 1 character and less than 100 characters</span>
     </div>
    
     <div class="col-6">
       <!-- <label for="userId">User Id</label>
       <input type="number" name="userId" [(ngModel)]="issueData.created_by" max="20" min="1" required="true"> -->
       <label for="userId">User Id</label>
-      <select name="userId" id="userId" [(ngModel)]="issueData.created_by" required>
+      <select name="userId" id="userId" [(ngModel)]="issueData.created_by" required  #userId="ngModel">
         <option [value]="user.id" *ngFor="let user of users">{{user.first_name+" "+user.last_name}}</option>
+        <span *ngIf="userId.invalid && userId.touched" style="color:red">Select User</span>
       </select>
       <label for="type">Type</label>
       <select name="" id="type" name="type" [(ngModel)]="issueData.type" required>
@@ -69,8 +71,9 @@
       <input type="file" id="Attachments" name="attachments" [(ngModel)]="issueData.attachments"> -->
     </div>
     <div class="navigation col-12">
-        <button type="submit" data-bs-dismiss="modal">Submit</button>
+        <button type="submit" data-bs-dismiss="modal" [disabled]="issueForm.invalid">Submit</button>
     </div>
+    <span *ngIf="issueForm.touched && issueForm.invalid" style="color:red" >Make sure to fill all the fields</span>
    
   </form>
 </div>

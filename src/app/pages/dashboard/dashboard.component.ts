@@ -42,57 +42,68 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isFetching = true;
-    this._service.getUserIssues().subscribe(
-      (data) => {
-        this.issues = data;
+    try {
 
-        // implementing logic to get users with most issues assigned
-        const assigneeCount = Object.entries(
-          this.countOccurrences(data, 'assignee')
-        );
-        let busyUsers: any = [];
-        assigneeCount.sort((a: any, b: any) => b[1] - a[1]);
-
-        for (let item of assigneeCount.slice(0, 4)) {
-          busyUsers.push(+item[0]);
-        }
-
-        let users = this.users.filter((ele) => busyUsers.includes(ele.id));
-        this.mostAssignedUsers = users;
-        let mostAssignedUsersData: any = [];
-        this.mostAssignedUsers.forEach((ele) => {
-          mostAssignedUsersData.push({
-            userObj: ele,
-            donePercentage: Math.trunc(
-              (this.issues.filter(
-                (issue) => issue.assignee == ele.id && issue.status == 'DONE'
-              ).length /
-                this.issues.filter((issue) => issue.assignee == ele.id)
-                  .length) *
-                100
-            )+'%',
-          });
-        });
-        this.mostAssignedUsersDetails = mostAssignedUsersData;
+      this._service.getUserIssues().subscribe(
+        (data) => {
+          this.issues = data;
   
-      },
-      (error) => {console.log(error)},
-      () => {
-        let dummyIssues = JSON.parse(JSON.stringify(this.issues));
-        dummyIssues.sort(
-          (a: any, b: any) =>
-            new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf()
-        );
-
-        this.recentlyUpdatedIssues = dummyIssues.slice(0, 4);
-        this.highPriorityIssues = dummyIssues
-          .filter((ele: any) => ele.priority == 'HIGH')
-          .slice(0, 4);
-
-        this.isFetching = false;
-      }
-    );
-    this._service.getUsers().subscribe((data) => (this.users = data));
+          // implementing logic to get users with most issues assigned
+          const assigneeCount = Object.entries(
+            this.countOccurrences(data, 'assignee')
+          );
+          let busyUsers: any = [];
+          assigneeCount.sort((a: any, b: any) => b[1] - a[1]);
+  
+          for (let item of assigneeCount.slice(0, 4)) {
+            busyUsers.push(+item[0]);
+          }
+  
+          let users = this.users.filter((ele) => busyUsers.includes(ele.id));
+          this.mostAssignedUsers = users;
+          let mostAssignedUsersData: any = [];
+          this.mostAssignedUsers.forEach((ele) => {
+            mostAssignedUsersData.push({
+              userObj: ele,
+              donePercentage: Math.trunc(
+                (this.issues.filter(
+                  (issue) => issue.assignee == ele.id && issue.status == 'DONE'
+                ).length /
+                  this.issues.filter((issue) => issue.assignee == ele.id)
+                    .length) *
+                  100
+              )+'%',
+            });
+          });
+          this.mostAssignedUsersDetails = mostAssignedUsersData;
+    
+        },
+        (error) => {console.log(error)},
+        () => {
+          let dummyIssues = JSON.parse(JSON.stringify(this.issues));
+          dummyIssues.sort(
+            (a: any, b: any) =>
+              new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf()
+          );
+  
+          this.recentlyUpdatedIssues = dummyIssues.slice(0, 4);
+          this.highPriorityIssues = dummyIssues
+            .filter((ele: any) => ele.priority == 'HIGH')
+            .slice(0, 4);
+  
+          this.isFetching = false;
+        }
+      );
+      this._service.getUsers().subscribe((data) => {
+        this.isFetching=true
+        this.users = data;},()=>{},()=>{
+          this.isFetching=false
+        });
+      
+    } catch (error:any) {
+      alert(error.message)
+    }
+   
 
   }
 

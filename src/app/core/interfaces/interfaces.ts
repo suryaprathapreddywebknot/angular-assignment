@@ -22,18 +22,18 @@ export interface Iissue {
 
 export class issueData {
   constructor(
-    public id:string,
-    public created_at: string,
-    public updated_at: string,
-    public short_id: string,
-    public title: string,
-    public description: string,
-    public priority: string,
-    public status: string,
-    public created_by: string,
-    public assignee: string,
-    public type:string,
-    public sprint  :string,
-    public storyPoints:string
+    public id:any,
+    public created_at: any,
+    public updated_at: any,
+    public short_id: any,
+    public title: any,
+    public description: any,
+    public priority: any,
+    public status: any,
+    public created_by: any,
+    public assignee: any,
+    public type:any,
+    public sprint  :any,
+    public storyPoints:any
   ) {}
 }
