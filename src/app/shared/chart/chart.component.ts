@@ -15,7 +15,6 @@ export class ChartComponent implements OnInit
  {
   @Input()public users:any;
 @Input()public issues:any;
-// @Input()public highPriorityIssues:any;
 
   private chart:am4charts.XYChart;
   public currentDate = new Date();
@@ -24,15 +23,31 @@ export class ChartComponent implements OnInit
 
 
   generateData() {
-    let data = [];
-    for (let i = 1; i <= 31; i++) {
-      data.push({
-        day: i,
-        value1: Math.floor(Math.random() * 30),
-        value2: Math.floor(Math.random() * 30)
-      });
+    let lastMonth= new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth() - 1
+    )
+    let issuesCopy=JSON.parse(JSON.stringify(this.issues))
+
+    let recentlyUpdatedFilteredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at)>=new Date(lastMonth))
+    let recentHighPriorityIssues=issuesCopy.filter((ele:any)=>new Date(ele.updated_at)>=new Date(lastMonth) && ele.priority=="HIGH")
+    
+    recentlyUpdatedFilteredIssues.map((ele:any)=>ele.updated_at=new Date(ele.updated_at).getDate())
+    recentHighPriorityIssues.map((ele:any)=>ele.updated_at=new Date(ele.updated_at).getDate())
+    let recCount=this.countOccurrences(recentlyUpdatedFilteredIssues,'updated_at')
+    let recHighCount=this.countOccurrences(recentHighPriorityIssues,'updated_at')
+      let chartData:any=[]
+    for(let i=0;i<=31;i++){
+      chartData.push(
+        {
+          day:i,
+          value1:recCount[i.toString()],
+          value2:recHighCount[i.toString()]
+        }
+      )
     }
-    return data;
+
+    return chartData
   }
 
   createChart(){
@@ -87,6 +102,17 @@ export class ChartComponent implements OnInit
      this.chart = chart;
   }
 
+  countOccurrences(arr: any, prop: any) {
+    return arr.reduce(function (acc: any, obj: any) {
+      let key = obj[prop];
+      if (!acc[key]) {
+        acc[key] = 0;
+      }
+      acc[key]++;
+      return acc;
+    }, {});
+  }
+
 
 
   
@@ -96,16 +122,13 @@ export class ChartComponent implements OnInit
 
   ngOnInit(){
     
-    let lastMonth= new Date(
-      this.currentDate.getFullYear(),
-      this.currentDate.getMonth() - 1
-    ).toLocaleDateString();
+   
 
-    let recentFiltredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=Date.now().toLocaleString())
-    let recentHighPriorityIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=lastMonth && ele.priority=="HIGH")
+    // let recentFiltredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=Date.now().toLocaleString())
+    // let recentHighPriorityIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=lastMonth && ele.priority=="HIGH")
     // console.log(recentFiltredIssues)
     // console.log(recentHighPriorityIssues)
-    let recentData=[]
+   
 
     this.createChart()
   }

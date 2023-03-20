@@ -7,8 +7,12 @@
     </div>
    
     <div class="col-6">
+      <!-- <label for="userId">User Id</label>
+      <input type="number" name="userId" [(ngModel)]="issueData.created_by" max="20" min="1" required="true"> -->
       <label for="userId">User Id</label>
-      <input type="number" name="userId" [(ngModel)]="issueData.created_by" max="20" min="1" required="true">
+      <select name="userId" id="userId" [(ngModel)]="issueData.created_by" required>
+        <option [value]="user.id" *ngFor="let user of users">{{user.first_name+" "+user.last_name}}</option>
+      </select>
       <label for="type">Type</label>
       <select name="" id="type" name="type" [(ngModel)]="issueData.type" required>
         <option value="epic"><span><i class="bi bi-lightning-charge-fill"></i> Epic</span></option>

@@ -74,21 +74,16 @@ export class DashboardComponent implements OnInit {
           });
         });
         this.mostAssignedUsersDetails = mostAssignedUsersData;
-        // console.log(mostAssignedUsersData);
-
-        // console.log(this.users.filter(ele=>busyUsers.includes(ele.id)))
+  
       },
       (error) => {console.log(error)},
       () => {
-        // console.log(this.issues);
         let dummyIssues = JSON.parse(JSON.stringify(this.issues));
-        // console.log(dummyIssues)
         dummyIssues.sort(
           (a: any, b: any) =>
             new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf()
         );
 
-        // console.log(dummyIssues)
         this.recentlyUpdatedIssues = dummyIssues.slice(0, 4);
         this.highPriorityIssues = dummyIssues
           .filter((ele: any) => ele.priority == 'HIGH')
@@ -97,9 +92,8 @@ export class DashboardComponent implements OnInit {
         this.isFetching = false;
       }
     );
-    // console.log(this.issues)
     this._service.getUsers().subscribe((data) => (this.users = data));
-    // this.highPriorityIssues=this.issues.filter(ele=>ele.priority=="HIGH")
+
   }
 
   onchange(event: any) {
