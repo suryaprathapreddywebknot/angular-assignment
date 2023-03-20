@@ -103,8 +103,8 @@ export class ChartComponent implements OnInit
 
     let recentFiltredIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=Date.now().toLocaleString())
     let recentHighPriorityIssues=this.issues.filter((ele:any)=>new Date(ele.updated_at).toDateString()>=lastMonth && ele.priority=="HIGH")
-    console.log(recentFiltredIssues)
-    console.log(recentHighPriorityIssues)
+    // console.log(recentFiltredIssues)
+    // console.log(recentHighPriorityIssues)
     let recentData=[]
 
     this.createChart()

@@ -43,6 +43,7 @@
     >
       <h1>In Progress</h1>
       <app-issue-card
+      [cardtype]="cardType"
         [issue]="item"
         [users]="users"
         (click)="issueDetailHandler(item)"
@@ -62,6 +63,7 @@
     >
       <h1>Done</h1>
       <app-issue-card
+      [cardtype]="cardType"
         [issue]="item"
         [users]="users"
         (click)="issueDetailHandler(item)"

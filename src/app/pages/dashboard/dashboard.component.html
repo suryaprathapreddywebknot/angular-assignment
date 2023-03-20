@@ -1,21 +1,69 @@
 <!-- <app-loader *ngIf="isFetching"></app-loader> -->
-<div class="dashboard row" *ngIf="!isFetching && issues">
-    <div class="dashboard-header col-12">
-        <h3>Dashboard</h3>
-        <select (change)="onchange($event)" >
-            <option value="" disabled selected>Select</option>
-            <option [value]="lastMonth">Last Month: {{lastMonth}}</option>
-            <option [value]="lastWeekStart">{{lastWeekStart}} - {{lastWeekEnd}}</option>
-        </select>
+<div
+  class="dashboard row"
+  *ngIf="
+    !isFetching &&
+    recentlyUpdatedIssues.length > 0 &&
+    highPriorityIssues.length > 0
+  "
+>
+  <div class="dashboard-header col-12">
+    <h3>Dashboard</h3>
+    <select (change)="onchange($event)">
+      <option value="" disabled selected>Select</option>
+      <option [value]="lastMonth">Last Month: {{ lastMonth }}</option>
+      <option [value]="lastWeekStart">
+        {{ lastWeekStart }} - {{ lastWeekEnd }}
+      </option>
+    </select>
+  </div>
+  <div class="amcharts">
+    <app-chart [issues]="issues"></app-chart>
+    <!-- <h1>Here charts will come</h1> -->
+  </div>
+  <div class="issues col-12 row">
+    <app-issue-list
+      class="col-4"
+      [issueState]="recent"
+      [issues]="recentlyUpdatedIssues"
+      [users]="users"
+      [usedIn]="dashboard"
+      *ngIf="recentlyUpdatedIssues.length"
+    ></app-issue-list>
+    <app-issue-list
+      class="col-4"
+      [issueState]="highPriority"
+      [issues]="highPriorityIssues"
+      [users]="users"
+      [usedIn]="dashboard"
+      *ngIf="highPriorityIssues"
+    ></app-issue-list>
+    <div class="col-4 assignees" *ngIf="mostAssignedUsersDetails">
+      <h5>ASSIGNEES</h5>
+      <div class="user-data row" *ngFor="let user of mostAssignedUsersDetails">
+        <div class="profile-div col-2">
+          <img
+            [src]="user?.userObj?.profile_pic"
+            class="profile"
+            alt="avatar"
+          />
+        </div>
+        <div class="assignee-detail col-10">
+          <span>{{ user.userObj.first_name + user.userObj.last_name }}</span>
+          <span>Issues Done:{{ user.donePercentage }}</span>
+          <div class="outer-container" style="height: 5px; width: 100%">
+            <div
+              class="inner-container"
+              style="height: 5px; background: #622eff"
+              [style.width]="user.donePercentage"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="navigation">
+        <button (click)="onClick($event)">View All</button>
+      </div>
     </div>
-    <div class="amcharts">
-        <app-chart [issues]="issues"></app-chart>
-        <!-- <h1>Here charts will come</h1> -->
-    </div>
-    <div class="issues col-12 row">
-        <app-issue-list class="col-4" [issueState]="recent" [issues]="recentlyUpdatedIssues" [users]="users" [usedIn]="dashboard"></app-issue-list>
-        <app-issue-list class="col-4" [issueState]="highPriority" [issues]="highPriorityIssues" [users]="users" [usedIn]="dashboard"></app-issue-list>
-        <app-issue-list class="col-4"></app-issue-list>
-    </div>
+  </div>
 </div>
 <app-loader *ngIf="isFetching"></app-loader>
